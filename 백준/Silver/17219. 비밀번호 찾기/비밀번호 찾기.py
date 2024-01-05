@@ -2,8 +2,10 @@ import sys
 
 class Solution:
     def findPassword(self):
-        
-        N, M = map(int, sys.stdin.readline().split())
+
+        input = sys.stdin.readline
+
+        N, M = map(int, input().split())
         add = {}
         for _ in range(N):
             site, ps = input().split()
