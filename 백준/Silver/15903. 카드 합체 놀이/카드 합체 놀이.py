@@ -9,11 +9,7 @@ class Solution:
             cardList[0] += cardList[1]
             cardList[1] = cardList[0]
 
-        total = 0
-        for d in cardList:
-            total += d
-
-        print(total)
+        print(sum(cardList))
 
 
 
