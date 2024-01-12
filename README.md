@@ -5,4 +5,3 @@ This is a auto push repository for Baekjoon Online Judge created with [BaekjoonH
 
 ## 프로그래머스
 
-## LeetCode
