@@ -10,15 +10,13 @@ class Solution:
         length = list(map(int, input().split()))
         price = list(map(int, input().split()))
 
-        min_price = 0
+        min_price = price[0]
+        total = 0
+        for i in range(len(price) - 1):
+            if price[i] < min_price:
+                min_price = price[i]
+            total += min_price * length[i]
 
-        for i in range(len(price)-1):
-            if length[i]:
-                if price[i] >= price[i+1]:
-                    min_price += price[i] * length[i]
-                else:
-                    min_price += price[i] * (length[i] + length[i+1])
-                    length[i+1] = None
-        print(min_price)
+        print(total)
 
 Solution().gasStation()
