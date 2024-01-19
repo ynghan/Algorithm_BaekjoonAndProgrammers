@@ -8,19 +8,15 @@ class Solution:
         total_budget = int(input())
         city.sort()
 
-        start, end = 0, city[-1]
-        while start <= end:
-            mid = (start + end) // 2
-            total = 0
-            for i in city:
-                if i <= mid:
-                    total += i
-                else:
-                    total += mid
-            if total <= total_budget:
-                start = mid + 1
-            else:
-                end = mid - 1
-        print(end)
+        maximum_budget = 0
+        for i in range(len(city)):
+            if city[i] * (len(city) - i) > total_budget:
+                maximum_budget = total_budget // (len(city) - i)
+                break
+            total_budget -= city[i]
+        else:
+            maximum_budget = city[-1]
+
+        print(maximum_budget)
 
 Solution().budget()
