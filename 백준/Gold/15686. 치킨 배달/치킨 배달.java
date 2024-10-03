@@ -2,13 +2,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+
 public class Main {
+    static int[][] board;
     static int N;
     static int M;
     static List<Pos> chickens;
     static List<Pos> houses;
+    // 최소 치킨 거리 저장할 변수
     static int minChickenDis = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
@@ -17,60 +21,70 @@ public class Main {
         N = Integer.parseInt(s[0]);
         M = Integer.parseInt(s[1]);
 
+        board = new int[N][N];
         chickens = new ArrayList<>();
         houses = new ArrayList<>();
 
         for(int i = 0; i < N ; i++) {
             String[] s1 = reader.readLine().split(" ");
             for(int j = 0; j < N; j++) {
-                int val = Integer.parseInt(s1[j]);
-                if(val == 2) {
+                board[i][j] = Integer.parseInt(s1[j]);
+                if(board[i][j] == 2) {
                     chickens.add(new Pos(i, j));
                 }
-                else if(val == 1) {
+                else if(board[i][j] == 1) {
                     houses.add(new Pos(i,j));
                 }
             }
         }
 
         // 치킨 집 M개 고르기
-        boolean[] visited = new boolean[chickens.size()];
+        int size = chickens.size();
+        boolean[] visited = new boolean[size];
         chooseM(visited, 0, 0);
+
+        // M개의 치킨 거리 합 구하기
 
         // 최소 치킨 거리 출력하기
         System.out.println(minChickenDis);
     }
 
     private static void chooseM(boolean[] visited, int start, int depth) {
+
         if(depth == M) {
             // 치킨 거리 합 구하기
-            int sum = calculateChickenDistance(visited);
-            minChickenDis = Math.min(minChickenDis, sum);
+            int val = sum(visited);
+            minChickenDis = Math.min(minChickenDis, val);
             return;
         }
 
         for(int i = start; i < chickens.size(); i++) {
             visited[i] = true;
-            chooseM(visited, i + 1, depth + 1);
+            chooseM(visited, i+1,depth+1);
             visited[i] = false;
         }
+
     }
 
-    private static int calculateChickenDistance(boolean[] visited) {
-        int totalDistance = 0;
+    private static int sum(boolean[] visited) {
+        int sum = 0;
+
         for (Pos house : houses) {
-            int minDistance = Integer.MAX_VALUE;
-            for (int i = 0; i < chickens.size(); i++) {
-                if (visited[i]) {
-                    Pos chicken = chickens.get(i);
-                    int distance = Math.abs(house.x - chicken.x) + Math.abs(house.y - chicken.y);
-                    minDistance = Math.min(minDistance, distance);
+            int min = Integer.MAX_VALUE;
+            for(int k = 0; k < visited.length; k++) {
+                if(visited[k]) {
+                    Pos chicken = chickens.get(k);
+                    int dis = Math.abs(chicken.x - house.x) + Math.abs(chicken.y - house.y);
+                    if(min > dis) {
+                        min = dis;
+                    }
                 }
             }
-            totalDistance += minDistance;
+            sum += min;
         }
-        return totalDistance;
+        return sum;
     }
+
 
     public static class Pos {
         int x;
