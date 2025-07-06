@@ -1,0 +1,46 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+public class Main {
+
+  static int N;
+  static int M;
+  static int[] arr;
+  static StringBuilder sb = new StringBuilder();
+
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String[] s = br.readLine().split(" ");
+    N = Integer.parseInt(s[0]);
+    M = Integer.parseInt(s[1]);
+
+    arr = new int[N];
+    int[] output = new int[M];
+    boolean[] visited = new boolean[N];
+
+    String[] s1 = br.readLine().split(" ");
+    for(int i = 0; i< N; i++) {
+      arr[i] = Integer.parseInt(s1[i]);
+    }
+    Arrays.sort(arr);
+
+    dfs(output,0, 0);
+    System.out.print(sb.toString());
+  }
+
+  public static void dfs(int[] output, int depth, int idx) {
+
+    if(output.length == depth) {
+      for(int i : output) sb.append(i).append(" ");
+      sb.append("\n");
+      return;
+    }
+
+    for(int i = idx; i < arr.length; i++) {
+      output[depth] = arr[i];
+      dfs(output, depth + 1, i);
+    }
+  }
+}
