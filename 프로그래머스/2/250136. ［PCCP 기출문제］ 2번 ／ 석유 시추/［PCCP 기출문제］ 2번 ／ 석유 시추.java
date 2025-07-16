@@ -14,7 +14,7 @@ class Solution {
 
         char[][] visited = new char[N][M];
         Map<Character, Integer> map = new HashMap<>();
-        Queue<int[]> queue = new LinkedList<>();
+        Queue<int[]> queue = new ArrayDeque<>();
 
         // 이제 지역마다 이름 붙여줬고, 크기도 설정해두었다.
         for(int i = 0; i < N; i++) {
