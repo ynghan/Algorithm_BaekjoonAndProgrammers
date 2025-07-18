@@ -1,19 +1,22 @@
 class Solution {
     public int solution(String[][] board, int h, int w) {
-        int answer = 0;
-        
-        int[][] dir = {{0,1}, {0,-1}, {1,0}, {-1,0}};
-        String color = board[h][w];
-        
-        for(int[] d : dir) {
-            if(h+d[0] >= 0 && h+d[0] < board.length && w+d[1] >= 0 && w+d[1] < board[0].length) {
-                if(board[h+d[0]][w+d[1]].equals(color)) {
-                    answer++;
-                }
-            }    
+        int n = board.length;
+        int count = 0;
+
+        int[] dh = {0, 1, -1, 0};
+        int[] dw = {1, 0, 0, -1};
+
+        for(int i = 0; i < 4; i++) {
+          int h_check = h + dh[i];
+          int w_check = w + dw[i];
+          if(h_check >= 0 && h_check < n && w_check >= 0 && w_check < n) {
+            if(board[h][w].equals(board[h_check][w_check])) {
+              count++;
+            }
+          }
         }
         
         
-        return answer;
+        return count;
     }
 }
