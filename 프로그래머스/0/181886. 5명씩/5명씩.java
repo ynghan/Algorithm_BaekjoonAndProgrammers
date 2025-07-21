@@ -2,13 +2,11 @@ import java.util.*;
 
 class Solution {
     public String[] solution(String[] names) {
-        int length = names.length;
-        List<String> firstName = new ArrayList<>();
-        int i = 0;
-        while(i < length) {
-            firstName.add(names[i]);
-            i += 5;
+        String[] answer = new String[(names.length-1) / 5 + 1];
+        int idx = 0;
+        for(int i = 0; i < names.length; i+=5) {
+            answer[idx++] = names[i];
         }
-        return firstName.toArray(new String[0]);
+        return answer;
     }
 }
