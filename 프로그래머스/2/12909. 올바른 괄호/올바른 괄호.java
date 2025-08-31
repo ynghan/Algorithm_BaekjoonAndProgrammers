@@ -1,29 +1,28 @@
-import java.util.Stack;
+import java.util.*;
 
 class Solution {
     public boolean solution(String s) {
-        // 여는 괄호를 저장할 스택 초기화
-        Stack<Character> stack = new Stack<>();
-
-        // 문자열의 각 문자를 순회
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-
-            // 여는 괄호를 만나면 스택에 추가
-            if (c == '(') {
-                stack.push(c);
-            }
-            // 닫는 괄호를 만나면 스택에서 여는 괄호를 제거
-            else if (c == ')') {
-                // 스택이 비어 있으면 짝이 맞지 않음
-                if (stack.isEmpty()) {
+        Deque<X> queue = new ArrayDeque<>();
+        char[] c = s.toCharArray();
+        for(int i = 0; i < c.length; i++) {
+            if(c[i] == '(') {
+                queue.add(new X(c[i]));   
+            } else {
+                if(queue.peek() != null) {
+                    queue.poll();
+                } else {
                     return false;
                 }
-                stack.pop(); // 가장 최근의 여는 괄호 제거
             }
         }
+        return queue.isEmpty() ? true : false;
+    }
+}
 
-        // 모든 괄호의 짝이 맞는지 확인
-        return stack.isEmpty();
+class X {
+    char c;
+    
+    public X(char c) {
+        this.c = c;
     }
 }
