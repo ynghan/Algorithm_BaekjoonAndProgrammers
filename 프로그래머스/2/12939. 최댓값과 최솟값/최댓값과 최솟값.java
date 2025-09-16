@@ -1,17 +1,14 @@
 import java.util.*;
 
 class Solution {
-    public String solution(String str) {
-        String[] tmp = str.split(" ");
-        int min, max, n;
-        min = max = Integer.parseInt(tmp[0]);
-        for (int i = 1; i < tmp.length; i++) {
-                n = Integer.parseInt(tmp[i]);
-            if(min > n) min = n;
-            if(max < n) max = n;
-        }
-
-        return min + " " + max;
+    public String solution(String s) {
+        String answer = "";
+        
+        String[] str = s.split(" ");
+        
+        int[] num = Arrays.stream(str).mapToInt(Integer::parseInt).toArray();
+        
+        Arrays.sort(num);
+        return num[0] + " " + num[num.length-1];
     }
 }
-
