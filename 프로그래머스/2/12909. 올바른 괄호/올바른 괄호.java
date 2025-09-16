@@ -1,28 +1,22 @@
 import java.util.*;
 
 class Solution {
-    public boolean solution(String s) {
-        Deque<X> queue = new ArrayDeque<>();
-        char[] c = s.toCharArray();
-        for(int i = 0; i < c.length; i++) {
-            if(c[i] == '(') {
-                queue.add(new X(c[i]));   
-            } else {
-                if(queue.peek() != null) {
-                    queue.poll();
-                } else {
+    boolean solution(String s) {
+        Stack<Character> stack = new Stack<>();
+        
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(c == '(') {
+                stack.push(c);
+            } else if(c == ')') {
+                if(stack.isEmpty()) {
                     return false;
+                } else {
+                    stack.pop();
                 }
             }
         }
-        return queue.isEmpty() ? true : false;
-    }
-}
-
-class X {
-    char c;
-    
-    public X(char c) {
-        this.c = c;
+        
+        return stack.isEmpty() ? true : false;
     }
 }
