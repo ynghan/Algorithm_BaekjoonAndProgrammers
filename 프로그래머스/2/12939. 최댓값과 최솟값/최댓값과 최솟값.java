@@ -1,16 +1,20 @@
 import java.util.*;
 
 class Solution {
-    public String solution(String str) {
-        String[] tmp = str.split(" ");
-        int min, max, n;
-        min = max = Integer.parseInt(tmp[0]);
-        for (int i = 1; i < tmp.length; i++) {
-                n = Integer.parseInt(tmp[i]);
-            if(min > n) min = n;
-            if(max < n) max = n;
+    public String solution(String s) {
+        String answer = "";
+        
+        String[] strArr = s.split(" ");
+        
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        
+        for(String str : strArr) {
+            int i = Integer.valueOf(str);
+            if(max < i) max = i;
+            if(min > i) min = i;
         }
-
+        
         return min + " " + max;
     }
 }
